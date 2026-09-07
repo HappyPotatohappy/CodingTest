@@ -1,17 +1,14 @@
 k, n = map(int, input().split())
-
-ans = []
-
-def slect(loc):
+arr= [] 
+def bt(loc):
     if loc == n+1:
-        print(*ans)
+        print(*arr)
         return
     
     for i in range(1,k+1):
-        ans.append(i)
-        slect(loc+1)
-        ans.pop()
-    return
+        arr.append(i)
+        bt(loc + 1)
+        arr.pop()
+    return 
 
-
-slect(1)
+bt(1)
