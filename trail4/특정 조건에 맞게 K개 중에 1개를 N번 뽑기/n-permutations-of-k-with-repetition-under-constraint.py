@@ -1,9 +1,6 @@
 k, n = map(int, input().split())
 arr = []
-
-cnt = 0
 def bt(loc):
-    global cnt
     if loc == n + 1:
         print(*arr)
         return
@@ -15,7 +12,6 @@ def bt(loc):
             continue
         bt(loc+1)
         arr.pop()
-
     return 
 
 bt(1)
