@@ -1,15 +1,22 @@
 k, n = map(int, input().split())
-ans= []
-def s(loc):
-    if loc == n+1:
-        print(*ans)
+arr = []
+
+cnt = 0
+def bt(loc):
+    global cnt
+    if loc == n + 1:
+        print(*arr)
         return
     
     for i in range(1,k+1):
-        if loc==1 or loc==2 or ans[-1]!=i or ans[-2]!=i:
-            ans.append(i)
-            s(loc+1)
-            ans.pop()
-    return
+        arr.append(i)
+        if len(arr) >= 3 and arr[-1] == arr[-2] == arr[-3]:
+            arr.pop()
+            continue
+        bt(loc+1)
+        arr.pop()
 
-s(1)
+    return 
+
+bt(1)
+
