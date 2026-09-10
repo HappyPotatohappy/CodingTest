@@ -1,18 +1,19 @@
 n = int(input())
 visited = [0]*(n+1)
-ans = []
-def s(loc):
+arr=[]
+def bt(loc):
     if loc == n+1:
-        print(*ans)
+        print(*arr)
         return
     
     for i in range(1,n+1):
-        if not visited[i]:
+        if visited[i] == 0:
             visited[i] = 1
-            ans.append(i)
-            s(loc+1)
-            ans.pop()#
-            visited[i] = 0# 이 두줄이 모두 벡트레킹
+            arr.append(i)
+            bt(loc + 1)
+            arr.pop()
+            visited[i] = 0
+
     return
 
-s(1)
+bt(1)
