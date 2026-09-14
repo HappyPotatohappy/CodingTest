@@ -1,18 +1,35 @@
-N, M = map(int, input().split())
+n, m = map(int, input().split())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
+mx = max(B)
+blst = [0]*(101)
 
-cnt = 0
-for i in range(N-M+1):
-    tmp = A[i:i+M]
-    tmp.sort()
-    b_sort = sorted(B)
-    tmp2 = 0
-    for j in range(M):
-        if tmp[j] == b_sort[j]:
-            tmp2+=1
-    if tmp2 == M:
-        cnt+=1
-    
-print(cnt)
-            
+
+for i in B:
+    blst[i]+=1
+
+def tmplst(numlist):
+    tmplst = [0]*(101)
+    for i in numlist:
+        tmplst[i]+=1
+    return tmplst
+
+def check(tplst):
+    for i,j in zip(blst,tplst):
+        if i!=j:
+            return 0
+    return 1
+
+ans = 0
+if m >n:
+    print(ans)
+else:
+    for i in range(n-m+1):
+        st = i
+        ed = i + m
+        tlst = tmplst(A[st:ed])
+        ans += check(tlst)
+
+    print(ans)
+
+                    
