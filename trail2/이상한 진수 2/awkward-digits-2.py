@@ -1,18 +1,21 @@
-a = input().strip()
+a = input()
 
-num = list(map(int,list(a)))
-
-n = len(num)
-s = sum(num)
-if s!=n:
+def btot(bi):
+    ans = 0
+    n = len(bi)
     for i in range(n):
-        if num[i] == 0:
-            num[i]=1
-            break
-else:
-    num[-1] = 0
-ans = 0
-for i in range(n):
-    ans += 2**(n-i-1)*num[i]
+        ans += int(bi[i])*2**(n-i-1)
+    return ans
 
-print(ans)
+n = len(a)
+mx = 0
+#aslt = list(map(int,list(a)))
+for i in range(1,n):
+    aslt = list(map(int,list(a)))
+    if aslt[i]==0:
+        aslt[i]=1
+    else:
+        aslt[i] = 0   
+    mx = max(btot(aslt),mx)    
+
+print(mx)
