@@ -1,17 +1,20 @@
-import sys
-input = sys.stdin.readline
-
-R, C = map(int, input().split())
-grid = [list(input().split()) for _ in range(R)]
+r, c = map(int, input().split())
+grid = [list(input().split()) for _ in range(r)]
 cnt = 0
-st_x = 0
-sy_y = 0
-for i in range(1,R-1):
-    for j in range(1,C-1):
-        if grid[0][0] != grid[i][j]:
-            for k in range(i+1,R-1):
-                for l in range(j+1,C-1):
-                    if grid[i][j] != grid[k][l] and grid[i][j] == grid[R-1][C-1]:
-                        cnt+=1
 
-sys.stdout.write(str(cnt))
+def jump(nowx,nowy,jump_cnt):
+    global cnt
+    if nowx == r-1 and nowy == c-1 and jump_cnt == 3:
+        cnt+=1
+        return
+    if jump_cnt >3:
+        return
+
+    for i in range(nowx+1,r):
+        for j in range(nowy+1,c):
+            if grid[nowx][nowy] != grid[i][j]:
+                jump(i,j,jump_cnt+1)
+    return
+
+jump(0,0,0)
+print(cnt)
