@@ -1,27 +1,19 @@
-import sys
-input = sys.stdin.readline
-
 n = int(input())
-
-pt = []
-
+points = [tuple(map(int, input().split())) for _ in range(n)]
+x = [p[0] for p in points]
+y = [p[1] for p in points]
+mx = 0
 for i in range(n):
-    pt.append(list(map(int,input().split())))
-
-sxmylen = 0 #같은 x 중 가장 길이가 큰 y에 해당하는 그 길이 찾기
-symxlen = 0 #같은 y 중 가장 길이가 큰 x에 해당하는 그 길이 찾기
-ms = -sys.maxsize
-for i in range(n):
-    nowx,nowy = pt[i][0], pt[i][1]
-    sxmylen = 0 #같은 x 중 가장 길이가 큰 y에 해당하는 그 길이 찾기
-    symxlen = 0 #같은 y 중 가장 길이가 큰 x에 해당하는 그 길이 찾기
+    nowx = x[i]
+    nowy = y[i]
+    mx_lenx = 0
+    mx_leny = 0
     for j in range(n):
-        if i == j :
+        if i==j:
             continue
-        nx,ny = pt[j][0], pt[j][1]
-        if nx == nowx:
-            sxmylen = max(sxmylen,abs(ny - nowy))
-        if ny == nowy:
-            symxlen = max(symxlen,abs(nx - nowx))
-    ms = max(symxlen*sxmylen,ms)
-sys.stdout.write(str(ms))
+        if x[j] == nowx:
+            mx_leny = max(mx_leny,abs(nowy-y[j]))
+        if y[j] == nowy:
+            mx_lenx = max(mx_lenx,abs(nowx-x[j]))
+    mx = max(mx,mx_lenx*mx_leny)
+print(mx)
