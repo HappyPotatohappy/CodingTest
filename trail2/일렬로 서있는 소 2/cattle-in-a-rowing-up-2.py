@@ -1,14 +1,12 @@
-import sys
-input = sys.stdin.readline
+n = int(input())
+a = list(map(int, input().split()))
 
-N = int(input())
-A = list(map(int, input().split()))
-
+a.insert(0,0)
 cnt = 0
-for i in range(N):
-    for j in range(i+1,N):
-        for k in range(j+1,N):
-            if A[i] <= A[j] <= A[k]:
-                cnt += 1
+for i in range(1,n+1):
+    for j in range(i+1,n+1):
+        for k in range(j+1,n+1):
+            if a[i] <= a[j] and a[j] <= a[k]:
+                cnt+=1
 
-sys.stdout.write(str(cnt))
+print(cnt)
