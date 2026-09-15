@@ -1,30 +1,23 @@
-import sys
 n, k = map(int, input().split())
-cand = []
-ps = []
+candy = []
+pos = []
 
 for _ in range(n):
     c, p = map(int, input().split())
-    cand.append(c)
-    ps.append(p)
+    candy.append(c)
+    pos.append(p)
 
+mx = 0
+def in_range(x):
+    return 0 <= x <= 100
 
-## c-k = 0 c+k = n-1
-mx = -1
-up = min(n,n-k)
-now = 0
-ps_max = max(ps)
-while 1:
-    st = max(0,now - k)
-    ed = now + k
+for x in range(0,101):
     tmp = 0
-    for i in range(n):
-        if st <= ps[i] <=ed:
-            tmp += cand[i]
-    mx = max(mx,tmp)
-    now += 1
-
-    if  now  >= ps_max:
-        break
-
+    for j in range(n):
+        p = pos[j]
+        c = candy[j]
+        if in_range(x) and (x-k <= p <= x+k):
+            tmp += c
+    mx = max(tmp,mx)
 print(mx)
+       
