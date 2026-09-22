@@ -1,28 +1,33 @@
-import sys
-input = sys.stdin.readline
 n = int(input())
 x = []
 dir = []
-num = [0]*(2001)
-now = 1000
+offset = 1000
+anslst= [0] * (2*offset)
 for _ in range(n):
     xi, di = input().split()
     x.append(int(xi))
     dir.append(di)
-    if di == "R":
+
+now = offset
+
+for i in range(n):
+    lng = x[i]
+    d = dir[i]
+    if d == "R":
         st = now
-        ed = now + int(xi)
-        now = ed 
+        ed = now + lng
+        now = ed
     else:
-        st = now - int(xi)
+        st = now - lng
         ed = now
         now = st
-    for i in range(st,ed):
-        num[i] +=1
+    
+    for j in range(st,ed):
+        anslst[j] +=1
 
 cnt = 0
-for i in num:
-    if i >=2:
-        cnt += 1
-sys.stdout.write(str(cnt))
+for k in anslst:
+    if k >= 2:
+        cnt+=1
+print(cnt)
 
