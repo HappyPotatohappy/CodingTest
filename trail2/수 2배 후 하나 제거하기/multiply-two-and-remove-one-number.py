@@ -1,21 +1,16 @@
-import sys
-input = sys.stdin.readline
-
+import random
 n = int(input())
 arr = list(map(int, input().split()))
-
-sc = sys.maxsize
-for i in range(n):
-    
-
-    for j in range(n):
-        cop = arr[:]
-        cop[i]*=2
-        cop.pop(j)
-        s = 0
+sc = 100*100
+for i in range(n): ## 2배로 만들 원소
+    arr[i] *= 2
+    for j in range(n): ##제거할 원소
+        cnt = 0
+        remain =[elem for idx, elem in enumerate(arr) if j!=idx]
 
         for k in range(n-2):
-            s += abs(cop[k] - cop[k+1])
-        sc = min(sc,s)
+            cnt += abs(remain[k] - remain[k+1])
 
-sys.stdout.write(str(sc))
+        sc = min(sc,cnt)
+    arr[i] = int(arr[i]/2)
+print(sc)
