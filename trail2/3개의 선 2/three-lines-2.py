@@ -1,50 +1,20 @@
-import random
 n = int(input())
 points = [tuple(map(int, input().split())) for _ in range(n)]
-x, y = zip(*points)
-x, y = list(x), list(y)
-visited = [0]*(n)
-def check(pt,xys):
-    for i in range(3):
-        if xys[i] == 0:
-            g = pt[i][0]
-            for j in range(n):
-                if x[j] == g:
-                    visited[j]=1
-        else:
-            g = pt[i][1]
-            for j in range(n):
-                if y[j] == g:
-                    visited[j]=1
-    if sum(visited)==n:
-        return 1
-    else:
-        return 0
-cand = []
-tmp = 0
-for i in range(2):
-    for j in range(2):
-        for k in range(2):
-            cand.append([i,j,k]) ##  0이면 x축에 평행, 1이면 y축
-for i in range(n):
-    for j in range(n):
-        if i == j:
-            continue
-        for k in range(n):
-            if j==k:
-                continue
-            for xys in cand:
-                visited = [0]*n
-                p1 = points[i]
-                p2 = points[j]
-                p3 = points[k]
-                pt = [p1,p2,p3]
-                tmp += check(pt,xys)
-if n <= 3:
-    print(1)
-else:
-    if tmp > 0:
-        print(1)
-    else:
-        print(0)
 
+def can_cover(remaining,lines_left):
+    if not remaining:
+        return True
+    if lines_left == 0:
+        return False
+    
+    x0,y0 = remaining[0]
+
+    after_vertical = [p for p in remaining if p[0] != x0]
+    if can_cover(after_vertical,lines_left - 1):
+        return True
+    
+    after_horizon = [p for p in remaining if p[1] != y0]
+    return can_cover(after_horizon,lines_left-1)
+
+ans = can_cover(points,3)
+print(1 if ans else 0)
