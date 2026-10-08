@@ -1,24 +1,18 @@
-import sys
-input = sys.stdin.readline
-
-n = int(input())
-pigeon = []
-position = []
-for _ in range(n):
+import random
+N = int(input())
+t = []
+for _ in range(N):
     p, pos = map(int, input().split())
-    pigeon.append(p)
-    position.append(pos)
+    t.append([p,pos])
 
-before = [-1]*11
+t.sort(key = lambda x: x[0])
 cnt = 0
-for i in range(n):
-    pi = pigeon[i]
-    posi = position[i]
-    if before[pi] == -1:
-        before[pi] = posi
-        continue
-    if before[pi] != posi:
-        cnt+=1
-        before[pi] = posi
-    
-sys.stdout.write(str(cnt))
+for i in range(N-1):
+    pi = t[i][0]
+    xi = t[i][1]
+    p_nxt = t[i+1][0]
+    x_nxt = t[i+1][1]
+    if pi == p_nxt and xi != x_nxt:
+        cnt += 1
+print(cnt)
+
