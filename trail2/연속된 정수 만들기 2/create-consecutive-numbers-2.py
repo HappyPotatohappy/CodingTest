@@ -1,16 +1,22 @@
-import sys
-input = sys.stdin.readline
 pos = list(map(int, input().split()))
 
 pos.sort()
-p1,p2,p3 = pos[0],pos[1],pos[2]
 
-d1 = p2 - p1
-d2 = p3 - p2
-
-if d1 == 1 and d2 ==1:
-    sys.stdout.write(str(0))
-elif d1==2 or d2==2:
-    sys.stdout.write(str(1))
+if pos[1] - 1 == pos[0] and pos[1] + 1 == pos[2]:
+    print(0)
+elif pos[1] + 2 == pos[2]:
+    print(1)
+elif (pos[1] - 1 == pos[0] and pos[1] + 1 != pos[2]):
+    if pos[1] + 2 == pos[2]:
+        print(1)
+    else:
+        print(2)
+elif pos[1] -2 == pos[0]:
+    print(1)
+elif (pos[1]+1 == pos[2] and pos[1] - 1 != pos[0]):
+    if pos[1] -2 == pos[0]:
+        print(1)
+    else:
+        print(2)
 else:
-    sys.stdout.write(str(2))
+    print(2)
