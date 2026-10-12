@@ -1,37 +1,26 @@
-import sys
-input = sys.stdin.readline
 n = int(input())
-seats = input().strip()
-seats = list(map(int,seats))
-seats.insert(0,0) #무조건 1 부터 n까지의 인덱스로 관리 해야 함!!!!!!!
+seats = list(map(int,input()))
 
-def check_longest_idx(numList):
-    bef = -1
-    leng = 0
-    for i in range(1,n+1):
-        if numList[i] and bef == -1:
-            bef = i
-        elif numList[i] and leng < i - bef:
-            leng = i - bef
-            idx = (i+bef)//2
-            bef = i
-        elif numList[i] and leng >= i - bef:
-            bef = i
-        
-    return idx
+def get_dist(st_idx,ed_idx):
+    return abs(ed_idx - st_idx)
 
-idx = check_longest_idx(seats)
+def check_long(seat):
+    dist_cand = []
+    for i in range(n):
+        if seats[i] == 1:
+            for j in range(i+1,n):
+                if seats[j] == 1:
+                    dist_cand.append([j - i,i,j])
+                    break
+    dist_cand.sort(key = lambda x: -x[0])
+    return dist_cand
 
-
-cop = seats[:]
-mix = sys.maxsize
-cop[idx] = 1
-bef = -1
-for i in range(1,n+1):
-    if cop[i] and bef == -1:
-        bef = i
-    elif cop[i]:
-        mix = min(mix,i-bef)
-        bef = i
-        
-sys.stdout.write(str(mix))
+def insert_one_mid(st_idx,ed_idx,seats):
+    mid = (st_idx + ed_idx)//2
+    seats[mid] = 1
+    return seats
+tmp2 = check_long(seats)
+st_idx, ed_idx = tmp2[0][1], tmp2[0][2]
+seats = insert_one_mid(st_idx, ed_idx,seats)
+tmp3 = check_long(seats)
+print(tmp3[-1][0])
