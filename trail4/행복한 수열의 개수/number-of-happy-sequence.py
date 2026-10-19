@@ -1,26 +1,38 @@
 n, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
 
-cnt = 0
 
-def check(numlist):
-    cnt = 0
+def check_lst(lst):
+    is_true = 0
+    cnt = 0 
     for i in range(1,n):
-        if numlist[i-1] != numlist[i]:
+        if lst[i-1] == lst[i]:
+            cnt += 1
+        if lst[i-1] != lst[i]:
             cnt = 0
             continue
-        if numlist[i-1] == numlist[i]:
-            cnt+=1
         if cnt == m - 1:
-            return 1
-    if cnt >= m - 1:
-        return 1
-    return 0
-ans = 0
+            is_true = 1
+            break
+    
+    return is_true
 
-for i in range(n):
-    row = grid[i]
-    col = [row[i] for row in grid]
-    ans += check(col)
-    ans += check(row)
-print(ans)
+def get_col(grid):
+    ans = []
+    for i in range(n):
+        tmp = []
+        for j in range(n):
+            tmp.append(grid[j][i])
+        ans.append(tmp)
+    return ans
+
+if m == 1:
+    print(2*n)
+else:
+    ans = 0
+    grid2 = get_col(grid)
+    for i in range(n):
+        a = check_lst(grid[i])
+        b = check_lst(grid2[i])
+        ans = ans + a + b
+    print(ans)
